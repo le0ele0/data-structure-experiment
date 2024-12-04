@@ -61,11 +61,16 @@ void Intersection(const SqList &La, const SqList &Lb, SqList &Lc)
             j++;
             q++;
         }
-    } while (Lc.length < La.length + Lb.length - q);
+        else if (La.data[i] < Lb.data[j])
+            i++;
+        else
+            j++;
+    } while (i < La.length && j < Lb.length);
 }
 
 int main()
 {
+    printf("hello world\n主函数开始运行");
     int a[7] = {9, 5, 3, 1, 7};
     int b[5] = {2, 4, 6, 7};
     // 112223455679
