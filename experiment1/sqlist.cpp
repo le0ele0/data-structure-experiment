@@ -47,7 +47,12 @@ void Union(const SqList &La, const SqList &Lb, SqList &Lc)
             j++;
             q++;
         }
-    } while (Lc.length < La.length + Lb.length - q);
+    } while (La.length > i && Lb.length > j);
+
+    for (j; j < Lb.length; j++)
+        InsertOrdered(Lc, Lb.data[j]);
+    for (i; i < La.length; i++)
+        InsertOrdered(Lc, La.data[i]);
 }
 void Intersection(const SqList &La, const SqList &Lb, SqList &Lc)
 {
@@ -67,28 +72,67 @@ void Intersection(const SqList &La, const SqList &Lb, SqList &Lc)
             j++;
     } while (i < La.length && j < Lb.length);
 }
+void Difference(const SqList &La, const SqList &Lb, SqList &Lc)
+{
+    int i = 0, j = 0;
+    InitList(Lc); // 初始化 Lc 为空列表
 
+    while (i < La.length && j < Lb.length)
+    {
+        if (La.data[i] == Lb.data[j])
+        {
+            // 如果元素相等，则跳过这个元素，因为它不是差集的一部分
+            i++;
+            j++;
+        }
+        else if (La.data[i] < Lb.data[j])
+        {
+            // 如果 La 中的元素小于 Lb 中的元素，那么它不在 Lb 中，应该加入到 Lc
+            InsertOrdered(Lc, La.data[i++]);
+        }
+        else
+        {
+            // 如果 La 中的元素大于 Lb 中的元素，增加 j 来继续比较
+            j++;
+        }
+    }
+
+    // 将 La 中剩余的元素添加到 Lc，因为这些元素肯定不在 Lb 中
+    while (i < La.length)
+    {
+        InsertOrdered(Lc, La.data[i++]);
+    }
+}
 int main()
 {
-    printf("hello world\n主函数开始运行");
-    int a[7] = {9, 5, 3, 1, 7};
-    int b[5] = {2, 4, 6, 7};
-    // 112223455679
-    SqList La, Lb, Lc, Ld;
+    int a[5] = {9, 5, 3, 1, 7};
+    int b[5] = {2, 4, 1, 6, 7};
+    printf("集合a：");
+    for (int i = 0; i < 5; i++)
+        printf(" %d", a[i]);
+    printf("\n集合b：");
+    for (int i = 0; i < 5; i++)
+        printf(" %d", b[i]);
+    SqList La, Lb, Lc, Ld, Le;
     // 初始化样例
     InitList(La);
     InitList(Lb);
-    // 创建待合并、橡胶的集合
+    // 创建待操作的集合
     for (int i = 0; i < 5; i++)
         InsertOrdered(La, a[i]);
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 5; i++)
         InsertOrdered(Lb, b[i]);
-    // 调用合并、相交函数
+    // 调用合并、相交、差集函数
     Union(La, Lb, Lc);
     Intersection(La, Lb, Ld);
+    Difference(La, Lb, Le);
+    printf("\n并集：");
     for (int i = 0; i < Lc.length; i++)
-        printf("%d", Lc.data[i]);
-    printf("\n");
+        printf(" %d", Lc.data[i]);
+    printf("\n交集：");
     for (int i = 0; i < Ld.length; i++)
-        printf("%d", Ld.data[i]);
+        printf(" %d", Ld.data[i]);
+    printf("\n差集：");
+    for (int i = 0; i < Le.length; i++)
+        printf(" %d", Le.data[i]);
 }
