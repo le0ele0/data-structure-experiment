@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <malloc.h>
-#define Max_size 50
 // 算法描述 流程图
 // 调试过程 怎么调试的
 // 1. 采用递增有序的顺序表表示集合，求解两个集合的交集、并集和差集
@@ -8,6 +5,9 @@
 // （2）实现存储递增有序集合的顺序表的建立、求交集、并集和差集等运算；
 // （3）要求算法的时间性能在线性时间复杂度内；
 // （4）和采用无序顺序表所表示的集合的有关运算的时间性能进行比较。
+#include <stdio.h>
+#include <malloc.h>
+#define Max_size 50
 typedef int ElemType;
 typedef struct
 {
