@@ -12,7 +12,7 @@ typedef struct Node
 {
     ElemType data;
     struct Node *next;
-} Node;
+} Node, *LinkList;
 
 void CreatNodeR(Node *&L, ElemType a[], int n)
 { // 创建一个单链表
@@ -28,10 +28,11 @@ void CreatNodeR(Node *&L, ElemType a[], int n)
     }
     r->next = NULL;
 }
+void Union(const LinkList a, const LinkList b, LinkList &c)
+{
+}
 int main()
 {
 
     return 0;
 }
-
-#include @qq.com !
