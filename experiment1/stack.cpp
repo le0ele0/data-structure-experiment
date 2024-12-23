@@ -1,69 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAXSIZE 100   // Õ»µÄ×î´óÈİÁ¿
-typedef int ElemType; // Õ»ÖĞÔªËØµÄÊı¾İÀàĞÍ
+#define MAXSIZE 100   // æ ˆçš„æœ€å¤§å®¹é‡
+typedef int ElemType; // æ ˆä¸­å…ƒç´ çš„æ•°æ®ç±»å‹
 
 typedef struct
 {
-    ElemType data[MAXSIZE]; // Êı×é´æ´¢Õ»ÔªËØ
-    int top;                // Õ»¶¥Ö¸Õë
+    ElemType data[MAXSIZE]; // æ•°ç»„å­˜å‚¨æ ˆå…ƒç´ 
+    int top;                // æ ˆé¡¶æŒ‡é’ˆ
 } SqStack;
-// ³õÊ¼»¯stack
+// åˆå§‹åŒ–stack
 void InitStack(SqStack *S)
 {
-    S->top = -1; // Õ»¶¥Ö¸ÕëÖÃÎª -1£¬±íÊ¾¿ÕÕ»
+    S->top = -1; // æ ˆé¡¶æŒ‡é’ˆç½®ä¸º -1ï¼Œè¡¨ç¤ºç©ºæ ˆ
 }
-// ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ
+// åˆ¤æ–­æ ˆæ˜¯å¦ä¸ºç©º
 int IsEmpty(SqStack S)
 {
     return S.top == -1;
 }
-// ½øÕ»
+// è¿›æ ˆ
 int Push(SqStack *S, ElemType e)
 {
     if (S->top == MAXSIZE - 1)
-    { // Õ»Âú
+    { // æ ˆæ»¡
         printf("Stack overflow!\n");
         return 0;
     }
-    S->data[++S->top] = e; // Õ»¶¥Ö¸Õë¼Ó1ºó´æÈëÔªËØ
+    S->data[++S->top] = e; // æ ˆé¡¶æŒ‡é’ˆåŠ 1åå­˜å…¥å…ƒç´ 
     return 1;
 }
-// ³öÕ»
+// å‡ºæ ˆ
 int Pop(SqStack *S, ElemType *e)
 {
     if (IsEmpty(*S))
-    { // Õ»¿Õ
+    { // æ ˆç©º
         printf("Stack underflow!\n");
         return 0;
     }
-    *e = S->data[S->top--]; // È¡³öÕ»¶¥ÔªËØºóÕ»¶¥Ö¸Õë¼õ1
+    *e = S->data[S->top--]; // å–å‡ºæ ˆé¡¶å…ƒç´ åæ ˆé¡¶æŒ‡é’ˆå‡1
     return 1;
 }
-// ÀûÓÃÕ»ÊµÏÖ£¬½«Ê®½øÖÆÊı×ª»»ÎªÈÎÒâ½øÖÆ£¨Èç¶ş½øÖÆ¡¢°Ë½øÖÆ¡¢Ê®Áù½øÖÆ£©¡£
+// åˆ©ç”¨æ ˆå®ç°ï¼Œå°†åè¿›åˆ¶æ•°è½¬æ¢ä¸ºä»»æ„è¿›åˆ¶ï¼ˆå¦‚äºŒè¿›åˆ¶ã€å…«è¿›åˆ¶ã€åå…­è¿›åˆ¶ï¼‰ã€‚
 void DecimalToBase(int decimal, int base)
 {
     SqStack S;
     InitStack(&S);
 
-    // ½«Ê®½øÖÆÊı×ª»»ÎªÄ¿±ê½øÖÆ
+    // å°†åè¿›åˆ¶æ•°è½¬æ¢ä¸ºç›®æ ‡è¿›åˆ¶
     while (decimal > 0)
     {
-        Push(&S, decimal % base); // ½«ÓàÊıÑ¹Õ»
-        decimal /= base;          // ¸üĞÂÉÌ
+        Push(&S, decimal % base); // å°†ä½™æ•°å‹æ ˆ
+        decimal /= base;          // æ›´æ–°å•†
     }
 
-    // ÒÀ´Îµ¯³öÕ»ÖĞÔªËØ£¬Êä³öÄ¿±ê½øÖÆµÄÊı×Ö
-    printf("Converted number: ");
+    // ä¾æ¬¡å¼¹å‡ºæ ˆä¸­å…ƒç´ ï¼Œè¾“å‡ºç›®æ ‡è¿›åˆ¶çš„æ•°å­—
+    printf("è½¬æ¢ç»“æœ: ");
     while (!IsEmpty(S))
     {
         int digit;
         Pop(&S, &digit);
-        // Êä³öÊ®Áù½øÖÆÊ±ĞèÌØÊâ´¦Àí
+        // è¾“å‡ºåå…­è¿›åˆ¶æ—¶éœ€ç‰¹æ®Šå¤„ç†
         if (digit >= 10)
         {
-            printf("%c", 'A' + digit - 10); // Ê®½øÖÆÊı×Ö10-15¶ÔÓ¦A-F
+            printf("%c", 'A' + digit - 10); // åè¿›åˆ¶æ•°å­—10-15å¯¹åº”A-F
         }
         else
         {
@@ -77,15 +77,15 @@ int main()
 {
     int decimal, base;
 
-    printf("Enter a decimal number: ");
+    printf("è¾“å…¥å¾…è½¬æ¢åè¿›åˆ¶æ•° ");
     scanf("%d", &decimal);
 
-    printf("Enter the base to convert to (e.g., 2 for binary, 8 for octal, 16 for hexadecimal): ");
+    printf("è¾“å…¥è¦è½¬ä¸ºå‡ è¿›åˆ¶: ");
     scanf("%d", &base);
 
     if (base < 2 || base > 16)
     {
-        printf("Base must be between 2 and 16.\n");
+        printf("è¿›åˆ¶å¿…é¡»æ˜¯2åˆ°16ä¹‹é—´\n");
         return 1;
     }
 
