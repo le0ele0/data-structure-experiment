@@ -31,6 +31,8 @@ bool InsertOrdered(SqList &L, ElemType e)
     L.length++;        // 更新长度
     return true;
 }
+// 保证顺序表是递增有序的
+
 void Union(const SqList &La, const SqList &Lb, SqList &Lc)
 {
     InitList(Lc); // 初始化结果表
