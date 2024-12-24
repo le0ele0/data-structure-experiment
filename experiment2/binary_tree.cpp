@@ -117,6 +117,11 @@ int main()
     root->right->right->data = 7;
     root->right->right->right = NULL;
     root->right->right->left = NULL;
+    //===========================================
+    // #####注意 一定要把叶子节点的左右子树置NULL
+    // 不然遍历函数会遍历叶子的left和right （不知道为什么它俩不是NULL）
+    // 不知道能不能省掉这一步操作
+    //=============================================
 
     // 测试遍历方法
     printf("Pre-order Traversal: ");
